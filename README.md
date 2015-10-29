@@ -62,4 +62,4 @@ The phone is useful in order to see where the robot is heading towards, to
 let the user know the position of the robotic arm, as well as being able
 to turn the light on if needed.
 
-![alt tag](/Report/finallook.jpg)
+![alt tag](https://github.com/radu-chc/Wirelessly-Controlled-Robot-Through-Advanced-Arm-Motion-Capture-Tracking-and-Gesture-Recognition/blob/master/Report/finallook3_low.png)
