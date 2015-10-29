@@ -66,7 +66,7 @@ to turn the light on if needed.
 
 
 ![alt tag](https://github.com/radu-chc/Wirelessly-Controlled-Robot-Through-Advanced-Arm-Motion-Capture-Tracking-and-Gesture-Recognition/blob/master/Report/power_source_low.JPG)
-![alt tag](https://github.com/radu-chc/Wirelessly-Controlled-Robot-Through-Advanced-Arm-Motion-Capture-Tracking-and-Gesture-Recognition/blob/master/Report/robot_body_low)
-![alt tag](https://github.com/radu-chc/Wirelessly-Controlled-Robot-Through-Advanced-Arm-Motion-Capture-Tracking-and-Gesture-Recognition/blob/master/Report/rover5duo_low)
-![alt tag](https://github.com/radu-chc/Wirelessly-Controlled-Robot-Through-Advanced-Arm-Motion-Capture-Tracking-and-Gesture-Recognition/blob/master/Report/glove_component_low)
-![alt tag](https://github.com/radu-chc/Wirelessly-Controlled-Robot-Through-Advanced-Arm-Motion-Capture-Tracking-and-Gesture-Recognition/blob/master/Report/robotarm_attached_low)
+![alt tag](https://github.com/radu-chc/Wirelessly-Controlled-Robot-Through-Advanced-Arm-Motion-Capture-Tracking-and-Gesture-Recognition/blob/master/Report/robot_body_low.JPG)
+![alt tag](https://github.com/radu-chc/Wirelessly-Controlled-Robot-Through-Advanced-Arm-Motion-Capture-Tracking-and-Gesture-Recognition/blob/master/Report/rover5duo_low.JPG)
+![alt tag](https://github.com/radu-chc/Wirelessly-Controlled-Robot-Through-Advanced-Arm-Motion-Capture-Tracking-and-Gesture-Recognition/blob/master/Report/glove_component_low.JPG)
+![alt tag](https://github.com/radu-chc/Wirelessly-Controlled-Robot-Through-Advanced-Arm-Motion-Capture-Tracking-and-Gesture-Recognition/blob/master/Report/robotarm_attached_low.JPG)
