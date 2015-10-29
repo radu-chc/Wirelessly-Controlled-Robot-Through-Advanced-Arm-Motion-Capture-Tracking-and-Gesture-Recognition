@@ -1,6 +1,6 @@
-Gesture Controlled Robot
+# Wirelessly Controlled Robot Through Advanced Arm Motion Capture Tracking and Gesture Recognition
 
-This submission includes:
+### This submission includes:
 
 - C code for both the transmitter Arduino on the glove, 
 as well as the receiver on the robot. Pitch and roll are used for driving motion.
@@ -25,7 +25,7 @@ and the front-end represents a heavily modified version. Integration into
 the WPF application is done using the Awesomium.NET framework.
 
 
-Additional note:
+### Additional note:
 
 The AVR program (.hex file) operating on the Robotic Arm microcontroller is the one provided
 by AREXX themselves. (*1)
@@ -34,7 +34,7 @@ by AREXX themselves. (*1)
 *2 https://itunes.apple.com/gb/app/ipcamera-high-end-network/id570912928?mt=8)
 
 
-USAGE:
+### USAGE:
 
 - The Kinect V1 or V2 should be connected before the App is launched. If the video
 stream is not displaying, please make sure the drivers and installed.
@@ -47,7 +47,7 @@ ARM before being able to connect (there should be a blue LED).
 Leap or Kinect as indicated, by ticking the appropriate checkboxes.
 
 
-Connecting to the Phone APP:
+####  Connecting to the Phone APP:
 
 Make sure your phone is visible (on the network) to your computer and viceversa.
 Download the App above, install it and then leave it running. You now need
