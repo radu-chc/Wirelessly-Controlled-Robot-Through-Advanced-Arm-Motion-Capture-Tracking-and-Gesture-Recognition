@@ -1,5 +1,7 @@
 # Wirelessly Controlled Robot Through Advanced Arm Motion Capture Tracking and Gesture Recognition
 
+[![Project Screencast](http://img.youtube.com/vi/b6Z3Rj_3TbU/0.jpg)](http://www.youtube.com/watch?v=b6Z3Rj_3TbU)
+
 ![alt tag](https://github.com/radu-chc/Wirelessly-Controlled-Robot-Through-Advanced-Arm-Motion-Capture-Tracking-and-Gesture-Recognition/blob/master/Report/finallook3_low.png)
 
 ### This submission includes:
