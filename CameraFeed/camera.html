@@ -1,0 +1,242 @@
+
+<!--This page is used to talk to the iPhone server and retrieve the video stream, as well as allowing torch control.
+	It represents a significantly modified version of the page that comes with IPCamera by Dominik Seibold.
+-->
+<html xmlns="http://www.w3.org/1999/xhtml" hola_ext_inject="disabled"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>IP Camera</title>
+<style type="text/css">
+	html,body {
+		background-color: white;
+		text-align: center;
+		color: gray;
+	}
+	
+	td {
+		text-align: center;
+	}
+	
+	#fullscreenDiv {
+		padding:10px;
+		padding-top: 0px;
+    	padding-bottom: 0px;
+		float:left;
+		background-color: white;
+	}
+	
+	#battery {
+		color: black;
+		font-weight: bold;
+	}
+
+	#control {
+		padding:10px;
+		padding-top: 0px;
+	    padding-bottom: 0px;
+	    float: left;
+	    margin-left: 20px;
+	}
+	</style>
+<script type="text/javascript" src="http://192.168.173.29:8080/jquery-1.8.2.min.js"></script><style type="text/css"></style>
+<script type="text/javascript">
+$( document ).ready(function() {
+  updateParams();// Handler for .ready() called.
+});
+	function displayParams(json) {
+		if (json.camera < 0) $("#camera").attr("disabled", "disabled");
+		else {
+			$("#camera").removeAttr("disabled");
+			$("#camera option").eq(json.camera).attr('selected', 'selected');
+		}
+		$("#camera").show();
+		
+		$("#resolution option").eq(json.resolution).attr('selected', 'selected');
+		$("#resolution").show();
+		
+		
+		function bestOptionIndex(opts, value) {
+			var bestIndex = 0;sx
+			var bestDist = 10000.0;
+			for (var i = 0; i < opts.length; i++) {
+				var dist = Math.abs(opts.eq(i).val()-value);
+				if (dist < bestDist) {
+					bestDist = dist;
+					bestIndex = i;
+				}
+			}
+			return bestIndex;
+		}
+		
+		var qOptions = $("#quality option");
+		qOptions.eq(bestOptionIndex(qOptions, json.quality)).attr('selected', 'selected');
+		$("#quality").show();
+		
+		
+		function processCheckbox(name) {
+			var box = $("#"+name);
+			box.removeAttr("checked");
+			box.removeAttr("disabled");
+			if (json[name] < 0) box.attr("disabled", "disabled");
+			else if (json[name] == 1) box.attr("checked", "checked");
+			box.show();
+		}
+		
+		processCheckbox("torch");
+		
+		processCheckbox("stats");
+		
+		$("#battery").text(json.battery);
+		$("#battery").show();
+	}
+	
+	function changeParam(name, value) {
+		$.getJSON("http://192.168.173.29:8080/parameters?"+name+"="+value, function(json) {
+			displayParams(json);
+		});
+	}
+	
+	function updateParams() {
+		$.getJSON("http://192.168.173.29:8080/parameters", function(json) {
+			displayParams(json);
+		});
+	}
+	
+	var isInFullscreen = false;
+	
+	function toggleFullscreen() {
+		var div = document.getElementById("fullscreenDiv");
+		
+		if (isInFullscreen) {
+			if (div.webkitCancelFullScreen) {
+				div.webkitCancelFullScreen();
+			} else if (div.mozCancelFullScreen) {
+				div.mozCancelFullScreen();
+			} else if (div.cancelFullScreen) {
+				div.cancelFullScreen();
+			} else {
+				return;
+			}
+		} else {
+			if (div.webkitRequestFullScreen) {
+				div.webkitRequestFullScreen();
+			} else if (div.mozRequestFullScreen) {
+				div.mozRequestFullScreen();
+			} else if (div.requestFullScreen) {
+				div.requestFullScreen();
+			} else {
+				return;
+			}
+		}
+	}
+	
+	function init() {
+		changeParam('stats', 1);
+		changeParam('quality', 10);
+		changeParam('resolution', 2);
+		updateParams();
+
+		$("#camera").hide();
+		$("#resolution").hide();
+		$("#quality").hide();
+		$("#fps").hide();
+		
+		$("#focus").hide();
+		$("#exposure").hide();
+		$("#wb").hide();
+		$("#torch").hide();
+		
+		$("#stats").hide();
+		$("#flip").hide();
+		$("#battery").hide();
+		$("#rotation").hide();
+		
+		updateParams();
+		setInterval("updateParams()", 2000);
+		
+		$("#live").attr("src", "http://192.168.173.29:8080/live");
+		
+		
+		document.documentElement.onwebkitfullscreenchange = function() {
+			isInFullscreen = !isInFullscreen;
+			
+			var img = document.getElementById("live");
+			var sw = screen.width;
+			var sh = screen.height;
+			
+			if (isInFullscreen) {
+				if (sw/sh > img.width/img.height) {
+					img.width = sh*img.width/img.height;
+					img.height = sh;
+				} else {
+					img.width = sw;
+					img.height = sw*img.height/img.width;
+				}
+			} else {
+				$(img).removeAttr("width");
+				$(img).removeAttr("height");
+			}
+		}
+		document.documentElement.onfullscreenchange = document.documentElement.onwebkitfullscreenchange;
+		document.addEventListener("mozfullscreenchange", document.documentElement.onwebkitfullscreenchange, false);
+	}
+</script>
+</head>
+
+<body onload="init()">
+<div id="fullscreenDiv">
+	<img id="live" onclick="toggleFullscreen()" src="http://192.168.173.29:8080/live">
+</div>
+
+<div id="control">
+
+<table cellpadding="5" align="center"><tbody>
+<tr>
+	
+	<td><label for="resolution">Resolution</label></td>
+	<td><label for="quality">Quality</label></td>
+	
+</tr>
+<tr>
+	
+	<td><select name="resolution" id="resolution" onchange="changeParam('resolution', this.value)" style="display: inline-block;">
+		<option value="0" selected="selected">192 x 144 (low)</option>
+		<option value="1" selected="selected">352 x 288 (medium)</option>
+		<option value="2" selected="selected">480 x 360 (high)</option>
+	</select></td>
+	<td><select name="quality" id="quality" onchange="changeParam('quality', this.value)" style="display: inline-block;">
+		<option value="0.0" selected="selected">0 (low)</option>
+		<option value="0.1">1</option>
+		<option value="0.2">2</option>
+		<option value="0.3">3</option>
+		<option value="0.4">4</option>
+		<option value="0.5">5 (medium)</option>
+		<option value="0.6">6</option>
+		<option value="0.7">7</option>
+		<option value="0.8">8</option>
+		<option value="0.9">9</option>
+		<option value="1.0">10 (high)</option>
+	</select></td>
+	
+</tr>
+<tr>
+	<td colspan="4">&nbsp;</td>
+</tr>
+<tr>
+	<td><label for="torch">Torch</label></td>
+  <td>Battery</td>
+	
+	
+</tr>
+<tr>
+	<td><input type="checkbox" name="torch" id="torch" onchange="changeParam('torch', this.checked?1:0)" style="display: inline-block;"></td>
+	<td><span id="battery" style="display: inline;"></span></td>
+	
+	
+</tr>
+
+
+
+</tbody></table>
+</div>
+
+</body></html>		
